@@ -1,0 +1,104 @@
+{#
+ Ink theme for LuCI — PanWatch-inspired (indigo / deep-navy)
+ Based on luci-theme-bootstrap (Apache-2.0).
+-#}
+
+{%
+	import { getuid, getspnam } from 'luci.core';
+
+	const boardinfo = ubus.call('system', 'board') ?? {};
+	// ink / ink-dark / ink-light  → null means "auto + user toggle"
+	const darkpref = (theme == 'ink-dark' ? 'true' : (theme == 'ink-light' ? 'false' : null));
+
+	http.prepare_content('text/html; charset=UTF-8');
+-%}
+
+<!DOCTYPE html>
+<html lang="{{ dispatcher.lang }}" {{ darkpref ? `data-darkmode="${darkpref}"` : '' }}>
+	<head>
+		<meta charset="utf-8">
+		<title>{{ striptags(`${boardinfo.hostname ?? '?'}${dispatched?.title ? ` | ${_(dispatched.title)}` : ''}`) }}</title>
+		{% if (!darkpref): %}
+			<script>
+				/* Ink: manual day/night toggle, persisted; falls back to system pref */
+				(function () {
+					var root = document.querySelector(':root'),
+					    KEY = 'luci-ink-darkmode',
+					    mq = window.matchMedia('(prefers-color-scheme: dark)');
+					function apply(on) { root.setAttribute('data-darkmode', on ? 'true' : 'false'); }
+					var saved = null;
+					try { saved = localStorage.getItem(KEY); } catch (e) {}
+					if (saved === null) {
+						apply(mq.matches);
+						mq.addEventListener('change', function (e) {
+							var s = null; try { s = localStorage.getItem(KEY); } catch (x) {}
+							if (s === null) apply(e.matches);
+						});
+					} else {
+						apply(saved === '1');
+					}
+					window.inkToggleDark = function () {
+						var on = root.getAttribute('data-darkmode') !== 'true';
+						apply(on);
+						try { localStorage.setItem(KEY, on ? '1' : '0'); } catch (e) {}
+					};
+				})();
+			</script>
+		{% endif %}
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="darkreader-lock">
+		<link rel="stylesheet" href="{{ media }}/cascade.css">
+		<link rel="stylesheet" media="only screen and (max-device-width: 854px)" href="{{ media }}/mobile.css" />
+		<link rel="icon" href="{{ media }}/logo.svg" sizes="any">
+		{% if (node?.css): %}
+		<link rel="stylesheet" href="{{ resource }}/{{ node.css }}">
+		{% endif %}
+		{% if (css): %}
+		<style title="text/css">{{ css }}</style>
+		{% endif %}
+		<script src="{{ dispatcher.build_url('admin/translations', dispatcher.lang) }}"></script>
+		<script src="{{ resource }}/cbi.js"></script>
+	</head>
+
+	<body class="lang_{{ dispatcher.lang }} {{ entityencode(striptags(node?.title ?? ''), true) }}" data-page="{{ entityencode(join('-', length(ctx.request_path) ? ctx.request_path : ctx.path), true) }}">
+		{% if (!blank_page): %}
+		<header>
+			<a class="brand" href="/">{{ striptags(boardinfo.hostname ?? '?') }}</a>
+			<ul class="nav" id="topmenu" style="display:none"></ul>
+			<div id="indicators" class="pull-right"></div>
+			{% if (!darkpref): %}
+			<a class="ink-dark-toggle pull-right" href="#" title="{{ _('Toggle day/night') }}"
+			   onclick="inkToggleDark();return false;">◐</a>
+			{% endif %}
+		</header>
+
+		<div id="maincontent" class="container">
+			{% if (getuid() == 0 && getspnam('root')?.pwdp === ''): %}
+				<div class="alert-message warning">
+					<h4>{{ _('No password set!') }}</h4>
+					<p>{{ _('There is no password set on this router. Please configure a root password to protect the web interface.') }}</p>
+					{% if (dispatcher.lookup("admin/system/admin")): %}
+					  <div class="right"><a class="btn" href="{{ dispatcher.build_url("admin/system/admin") }}">{{ _('Go to password configuration...') }}</a></div>
+					{% endif %}
+				</div>
+			{% endif %}
+
+			{% if (boardinfo.rootfs_type == "initramfs"): %}
+				<div class="alert-message warning">
+					<h4>{{ _('System running in recovery (initramfs) mode.') }}</h4>
+					<p>{{ _('No changes to settings will be stored and are lost after rebooting. This mode should only be used to install a firmware upgrade') }}</p>
+					{% if (dispatcher.lookup("admin/system/flash")): %}
+					  <div class="right"><a class="btn" href="{{ dispatcher.build_url("admin/system/flash") }}">{{ _('Go to firmware upgrade...') }}</a></div>
+					{% endif %}
+				</div>
+			{% endif %}
+
+			<noscript>
+				<div class="alert-message warning">
+					<h4>{{ _('JavaScript required!') }}</h4>
+					<p>{{ _('You must enable JavaScript in your browser or LuCI will not work properly.') }}</p>
+				</div>
+			</noscript>
+
+			<div id="tabmenu" style="display:none"></div>
+		{% endif %}

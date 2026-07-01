@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>luci-theme-ink · 预览</title>
+  <!-- 加载真实主题 CSS(和路由器上一致) -->
+  <link rel="stylesheet" href="../luci-theme-ink/htdocs/luci-static/ink/cascade.css">
+  <script>
+    /* 复用 header.ut 里的日/夜切换逻辑 */
+    (function () {
+      var root = document.documentElement, KEY = 'luci-ink-darkmode',
+          mq = window.matchMedia('(prefers-color-scheme: dark)');
+      function apply(on){ root.setAttribute('data-darkmode', on ? 'true':'false'); }
+      var saved = null; try { saved = localStorage.getItem(KEY); } catch(e){}
+      if (saved === null) { apply(mq.matches); } else { apply(saved === '1'); }
+      window.inkToggleDark = function(){
+        var on = root.getAttribute('data-darkmode') !== 'true';
+        apply(on); try { localStorage.setItem(KEY, on ? '1':'0'); } catch(e){}
+      };
+    })();
+  </script>
+</head>
+<body class="lang_zh-cn" data-page="admin-status-overview">
+  <header>
+    <a class="brand" href="#">OpenClash-Router</a>
+    <ul class="nav" id="topmenu" style="display:flex;list-style:none;gap:4px;margin:0;">
+      <li class="active"><a href="#">状态</a></li>
+      <li><a href="#">系统</a></li>
+      <li><a href="#">服务</a></li>
+      <li><a href="#">网络</a></li>
+    </ul>
+    <a class="ink-dark-toggle pull-right" href="#" title="切换日间/暗黑" onclick="inkToggleDark();return false;">◐</a>
+  </header>
+
+  <div id="maincontent" class="container">
+    <h2>系统概览</h2>
+
+    <div class="alert-message success">已保存并应用配置。</div>
+    <div class="alert-message warning">检测到 IPv6 由主路由下发,旁路由不再发 RA。</div>
+
+    <!-- Tabs -->
+    <ul class="cbi-tabmenu tabs" style="display:flex;list-style:none;gap:2px;padding:0;">
+      <li class="cbi-tab cbi-tab-active active"><a href="#">常规设置</a></li>
+      <li class="cbi-tab"><a href="#">高级设置</a></li>
+      <li class="cbi-tab"><a href="#">DNS</a></li>
+    </ul>
+
+    <!-- Form card -->
+    <fieldset class="cbi-section">
+      <legend>OpenClash 运行参数</legend>
+      <div class="cbi-section-node">
+        <div class="cbi-value">
+          <label class="cbi-value-title">运行模式</label>
+          <div class="cbi-value-field">
+            <select class="cbi-input-select">
+              <option>Fake-IP</option>
+              <option>Redir-Host</option>
+            </select>
+          </div>
+        </div>
+        <div class="cbi-value">
+          <label class="cbi-value-title">外部控制端口</label>
+          <div class="cbi-value-field">
+            <input type="text" class="cbi-input-text" value="9090">
+          </div>
+        </div>
+        <div class="cbi-value">
+          <label class="cbi-value-title">兜底策略</label>
+          <div class="cbi-value-field">
+            <input type="text" class="cbi-input-text" value="MATCH → ✈️Final → 🎯Direct">
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Table card -->
+    <fieldset class="cbi-section">
+      <legend>规则集加载状态</legend>
+      <div class="table cbi-section-table">
+        <div class="tr cbi-section-table-titles">
+          <div class="th">名称</div><div class="th">类型</div><div class="th">条目</div><div class="th">状态</div>
+        </div>
+        <div class="tr"><div class="td">Netflix</div><div class="td">domain</div><div class="td">1024</div><div class="td" style="color:var(--success-color-high)">已加载</div></div>
+        <div class="tr"><div class="td">YouTube</div><div class="td">domain</div><div class="td">860</div><div class="td" style="color:var(--success-color-high)">已加载</div></div>
+        <div class="tr"><div class="td">Telegram</div><div class="td">ipcidr</div><div class="td">142</div><div class="td" style="color:var(--error-color-high)">失败</div></div>
+      </div>
+    </fieldset>
+
+    <!-- Buttons -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn cbi-button cbi-button-action important">保存并应用</button>
+      <button class="btn cbi-button">保存</button>
+      <button class="btn cbi-button cbi-button-negative">复位</button>
+      <a class="btn" href="#">普通链接按钮</a>
+    </div>
+
+    <p style="margin-top:16px">这是一段正文,包含一个 <a href="#">超链接</a> 与 <code>inline code</code>,用于检查文字与主色对比度。涨:<span style="color:var(--error-color-high)">+10.97%</span> 跌:<span style="color:var(--success-color-high)">-1.83%</span>。</p>
+  </div>
+
+  <footer>
+    <span>Powered by LuCI · <a href="#">Ink</a> theme · 点右上角 ◐ 切换日/夜</span>
+  </footer>
+</body>
+</html>

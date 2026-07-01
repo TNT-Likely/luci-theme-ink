@@ -1,0 +1,8 @@
+# build outputs
+/bin/
+/dist/
+/logs/
+*.apk
+*.ipk
+# os junk
+.DS_Store
