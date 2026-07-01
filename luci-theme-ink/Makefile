@@ -10,6 +10,9 @@ include $(TOPDIR)/rules.mk
 LUCI_TITLE:=Ink Theme (PanWatch-inspired, light/dark)
 LUCI_DEPENDS:=+luci-base
 
+PKG_VERSION:=0.1.0
+PKG_RELEASE:=1
+
 PKG_LICENSE:=Apache-2.0
 PKG_MAINTAINER:=TNT-Likely
 
