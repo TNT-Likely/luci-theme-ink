@@ -6,3 +6,6 @@
 *.ipk
 # os junk
 .DS_Store
+
+# 本地真实 DOM 预览(抓自自己的路由,不发布)
+preview/real-luci.html

@@ -48,6 +48,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="darkreader-lock">
 		<link rel="stylesheet" href="{{ media }}/cascade.css">
+		<link rel="stylesheet" href="{{ media }}/ink-tokens.css">
+		<link rel="stylesheet" href="{{ media }}/ink-base.css">
+		<link rel="stylesheet" href="{{ media }}/ink-forms.css">
+		<link rel="stylesheet" href="{{ media }}/ink-buttons.css">
+		<link rel="stylesheet" href="{{ media }}/ink-header.css">
+		<link rel="stylesheet" href="{{ media }}/ink-tabs.css">
+		<link rel="stylesheet" href="{{ media }}/ink-feedback.css">
 		<link rel="stylesheet" media="only screen and (max-device-width: 854px)" href="{{ media }}/mobile.css" />
 		<link rel="icon" href="{{ media }}/logo.svg" sizes="any">
 		{% if (node?.css): %}

@@ -1,0 +1,40 @@
+/*!
+ * luci-theme-ink · buttons —— 按钮(主色/次要幽灵/positive/negative)
+ */
+
+.btn, .cbi-button, button {
+  border-radius: var(--ink-radius-sm);
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: transform .06s ease, background-color .15s ease, box-shadow .15s ease;
+}
+.btn:active, .cbi-button:active, button:active { transform: scale(.98); }
+
+/* 次要 = 幽灵描边(PanWatch 刷新/扫描) */
+.btn:not(.cbi-button-action):not(.cbi-button-apply):not(.cbi-button-save):not(.cbi-button-positive):not(.cbi-button-negative):not(.important),
+.cbi-button:not(.cbi-button-action):not(.cbi-button-apply):not(.cbi-button-save):not(.cbi-button-positive):not(.cbi-button-negative):not(.important) {
+  background: transparent;
+  border: 1px solid var(--border-color-medium);
+  color: var(--text-color-high);
+}
+.btn:not(.cbi-button-action):not(.cbi-button-apply):not(.cbi-button-save):not(.important):hover,
+.cbi-button:not(.cbi-button-action):not(.cbi-button-apply):not(.cbi-button-save):not(.important):hover {
+  background: var(--background-color-medium);
+  border-color: var(--border-color-high);
+}
+
+/* 主色 / 应用 = 靛蓝实心 */
+.cbi-button-action, .cbi-button-apply, .cbi-button-save, .btn.important, .important {
+  background: var(--primary-color-medium) !important;
+  border: 1px solid var(--primary-color-medium) !important;
+  color: var(--on-primary-color) !important;
+}
+.cbi-button-action:hover, .cbi-button-apply:hover, .cbi-button-save:hover, .important:hover {
+  background: var(--primary-color-low) !important;
+  border-color: var(--primary-color-low) !important;
+}
+
+/* positive(保存)= 绿实心;negative(复位)= 红描边 */
+.cbi-button-positive { background: var(--success-color-high) !important; border: 1px solid var(--success-color-high) !important; color: #fff !important; }
+.cbi-button-negative { background: transparent !important; border: 1px solid var(--error-color-high) !important; color: var(--error-color-high) !important; }
+.cbi-button-negative:hover { background: var(--error-color-high) !important; color: #fff !important; }

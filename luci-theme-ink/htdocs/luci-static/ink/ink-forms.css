@@ -1,0 +1,27 @@
+/*!
+ * luci-theme-ink · forms —— 表单标题 / 标签 / 输入框 / 焦点
+ * 注意:只改表皮(颜色/圆角),不动 .cbi-value 的布局(display/flex/width)——
+ * 那在 v0.1.0 弄塌了 LuCI 的 JS 表单。保留 LuCI 原生表单布局。
+ */
+
+/* 区块标题加粗 */
+.cbi-section > legend, legend { font-weight: 700; color: var(--text-color-high); }
+
+/* 字段标签/描述:仅改颜色 */
+.cbi-value-title { color: var(--text-color-medium); }
+.cbi-value-description { color: var(--text-color-low); }
+
+/* 输入框:主题化 + 圆角(尺寸保持 LuCI 原生) */
+input[type="text"], input[type="password"], input[type="number"], input[type="search"],
+input[type="email"], input[type="url"], select, textarea,
+.cbi-input-text, .cbi-input-password, .cbi-input-select, .cbi-dynlist {
+  background: var(--background-color-high);
+  border: 1px solid var(--border-color-medium);
+  color: var(--text-color-highest);
+  border-radius: var(--ink-radius-sm);
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary-color-medium);
+  box-shadow: 0 0 0 3px hsl(234 85% 55% / .18);
+  outline: none;
+}

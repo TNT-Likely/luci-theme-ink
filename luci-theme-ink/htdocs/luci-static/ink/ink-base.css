@@ -1,0 +1,22 @@
+/*!
+ * luci-theme-ink · base —— 页面底色 / 卡片 / 链接
+ * 依赖 ink-tokens.css。加载顺序:cascade → tokens → base → forms → buttons → header → tabs → feedback
+ */
+
+/* 灰底/深底页面,卡片上浮 */
+body { background-color: var(--background-color-low); }
+#maincontent, .container { background: transparent; }
+
+/* 链接主色 */
+a { color: var(--primary-color-high); }
+
+/* 卡片:大圆角 + 细边框 + 轻阴影 */
+.cbi-section, fieldset.cbi-section, .cbi-map > .cbi-section, .panel, .cbi-tabcontainer,
+.table, .cbi-section-node, .alert-message, .notification, .modal, .cbi-value-field .cbi-section {
+  border-radius: var(--ink-radius);
+}
+.cbi-section, fieldset.cbi-section, .panel {
+  background-color: var(--background-color-high);
+  border: 1px solid var(--border-color-medium);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, .04);
+}

@@ -1,0 +1,79 @@
+/*!
+ * luci-theme-ink · tokens —— 设计变量(配色/圆角/字体,日间 :root / 暗黑 [data-darkmode=true])
+ * 只放变量,组件样式在 ink-components.css。改主题基本只动这里。
+ */
+
+:root {
+  /* surfaces: high = white card, low = cool-gray page (PanWatch light) */
+  --background-color-delta-l-sign: -1;
+  --background-color-h: 220;
+  --background-color-s: 20%;
+  --background-color-l: 100%;
+
+  /* text: near-black cool ink */
+  --text-color-delta-l-sign: 1;
+  --text-color-h: 220;
+  --text-color-s: 18%;
+  --text-color-l: 12%;
+
+  /* faint cool borders */
+  --border-color-delta-l-sign: -1;
+  --border-color-h: 220;
+  --border-color-s: 14%;
+  --border-color-l: 100%;
+
+  /* indigo primary (PanWatch periwinkle) */
+  --primary-color-high: hsl(233 84% 62%);
+  --primary-color-medium: hsl(233 82% 58%);
+  --primary-color-low: hsl(233 78% 50%);
+  --on-primary-color: #fff;
+
+  /* muted labels (PanWatch small gray field labels) */
+  --text-color-medium: hsl(220 9% 46%);
+  --text-color-low: hsl(220 10% 60%);
+
+  /* semantic: green = ok / red = error (standard router UI) */
+  --success-color-high-rgb: 46, 189, 133;
+  --success-color-high: #2ebd85;
+  --success-color-medium: #27a976;
+  --success-color-low: #1f8f63;
+  --error-color-high-rgb: 246, 70, 93;
+  --error-color-high: #f6465d;
+  --error-color-medium: #e23a50;
+  --error-color-low: #c92f44;
+
+  --ink-radius: 16px;
+  --ink-radius-sm: 10px;
+
+  color-scheme: light;
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", "Cascadia Code", "Source Code Pro", Monaco, ui-monospace, monospace;
+}
+
+:root[data-darkmode="true"] {
+  /* near-black w/ faint blue: card (~9%) raised over page (~5%) — PanWatch dark */
+  --background-color-delta-l-sign: -1;
+  --background-color-h: 222;
+  --background-color-s: 16%;
+  --background-color-l: 8%;
+
+  --text-color-delta-l-sign: -1;
+  --text-color-h: 220;
+  --text-color-s: 14%;
+  --text-color-l: 92%;
+
+  --border-color-delta-l-sign: 1;
+  --border-color-h: 222;
+  --border-color-s: 14%;
+  --border-color-l: 11%;
+
+  --primary-color-high: hsl(233 90% 71%);
+  --primary-color-medium: hsl(233 88% 66%);
+  --primary-color-low: hsl(233 82% 58%);
+  --on-primary-color: #fff;
+
+  --text-color-medium: hsl(220 10% 56%);
+  --text-color-low: hsl(220 8% 44%);
+
+  color-scheme: dark;
+}

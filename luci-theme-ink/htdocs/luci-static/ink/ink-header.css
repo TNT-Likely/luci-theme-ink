@@ -1,0 +1,44 @@
+/*!
+ * luci-theme-ink · header —— 顶栏 / 导航 / 下拉菜单
+ * 注意:不要在 header 上设 display:flex/justify-content —— 会破坏 LuCI
+ * 绝对定位的下拉子菜单。保留 bootstrap 原生布局。
+ */
+
+header {
+  background: var(--background-color-low) !important;
+  background-image: none !important;
+  border-bottom: none;
+  box-shadow: none;
+}
+header .brand { color: var(--text-color-high); font-weight: 700; letter-spacing: .2px; }
+header .nav > li { position: relative; }   /* 让下拉子菜单锚定到各自 li */
+header .nav > li > a, header #indicators > * { color: var(--text-color-medium); }
+header .nav > li > a {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+header .nav > li > a:hover { color: var(--text-color-high); background: var(--background-color-medium); }
+
+/* 选中导航 = 描边靛蓝药丸 */
+header .nav > li.active > a {
+  color: var(--text-color-highest);
+  background: hsl(234 85% 55% / .12);
+  border-color: hsl(234 85% 62% / .45);
+  box-shadow: none;
+}
+
+/* 下拉子菜单项保持朴素(不做药丸) */
+header .nav > li ul a { border-radius: 0; border: 0; }
+
+/* 顶栏内 日/夜 切换按钮 */
+.ink-dark-toggle {
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 6px 9px;
+  border-radius: var(--ink-radius-sm);
+  color: var(--text-color-medium);
+  text-decoration: none;
+}
+.ink-dark-toggle:hover { color: var(--text-color-high); background: var(--background-color-medium); }
