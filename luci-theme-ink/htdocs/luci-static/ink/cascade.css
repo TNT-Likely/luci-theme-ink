@@ -2680,11 +2680,15 @@ body[data-page='admin-status-overview'] .cbi-title .label.notice:hover {
   --border-color-s: 14%;
   --border-color-l: 100%;
 
-  /* indigo primary (PanWatch 234 85% 55%) */
-  --primary-color-high: hsl(234 85% 60%);
-  --primary-color-medium: hsl(234 85% 55%);
-  --primary-color-low: hsl(234 82% 49%);
+  /* indigo primary (PanWatch periwinkle) */
+  --primary-color-high: hsl(233 84% 62%);
+  --primary-color-medium: hsl(233 82% 58%);
+  --primary-color-low: hsl(233 78% 50%);
   --on-primary-color: #fff;
+
+  /* muted labels (PanWatch small gray field labels) */
+  --text-color-medium: hsl(220 9% 46%);
+  --text-color-low: hsl(220 10% 60%);
 
   /* semantic: green = ok / red = error (standard router UI) */
   --success-color-high-rgb: 46, 189, 133;
@@ -2696,7 +2700,7 @@ body[data-page='admin-status-overview'] .cbi-title .label.notice:hover {
   --error-color-medium: #e23a50;
   --error-color-low: #c92f44;
 
-  --ink-radius: 14px;
+  --ink-radius: 16px;
   --ink-radius-sm: 10px;
 
   color-scheme: light;
@@ -2709,7 +2713,7 @@ body[data-page='admin-status-overview'] .cbi-title .label.notice:hover {
   --background-color-delta-l-sign: -1;
   --background-color-h: 222;
   --background-color-s: 16%;
-  --background-color-l: 9%;
+  --background-color-l: 8%;
 
   --text-color-delta-l-sign: -1;
   --text-color-h: 220;
@@ -2721,10 +2725,13 @@ body[data-page='admin-status-overview'] .cbi-title .label.notice:hover {
   --border-color-s: 14%;
   --border-color-l: 11%;
 
-  --primary-color-high: hsl(234 85% 68%);
-  --primary-color-medium: hsl(234 85% 62%);
-  --primary-color-low: hsl(234 80% 55%);
+  --primary-color-high: hsl(233 90% 71%);
+  --primary-color-medium: hsl(233 88% 66%);
+  --primary-color-low: hsl(233 82% 58%);
   --on-primary-color: #fff;
+
+  --text-color-medium: hsl(220 10% 56%);
+  --text-color-low: hsl(220 8% 44%);
 
   color-scheme: dark;
 }
@@ -2762,25 +2769,32 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 0 0 3px hsl(234 85% 55% / .18);
 }
 
-/* minimal top bar that BLENDS with the page (PanWatch signature) */
+/* minimal top bar that BLENDS with the page, centered nav (PanWatch signature) */
 header {
   background: var(--background-color-low) !important;
   background-image: none !important;
-  border-bottom: 1px solid var(--border-color-medium);
+  border-bottom: none;
   box-shadow: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-header .brand { color: var(--text-color-high); font-weight: 700; letter-spacing: .2px; }
+header .brand { flex: 0 0 auto; color: var(--text-color-high); font-weight: 700; letter-spacing: .2px; }
+header #topmenu { flex: 1 1 auto; display: flex; justify-content: center; gap: 4px; margin: 0; }
+header #indicators, header .ink-dark-toggle { flex: 0 0 auto; }
 header .nav > li > a, header #indicators > * { color: var(--text-color-medium); }
 header .nav > li > a {
-  border-radius: var(--ink-radius-sm);
-  padding: 7px 12px;
-  transition: background-color .15s ease, color .15s ease;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 6px 14px;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
 }
 header .nav > li > a:hover { color: var(--text-color-high); background: var(--background-color-medium); }
-/* active nav = soft indigo pill, NOT underline */
+/* active nav = bordered soft-indigo pill (PanWatch signature) */
 header .nav > li.active > a {
-  color: var(--primary-color-high);
-  background: hsl(234 85% 55% / .14);
+  color: var(--text-color-highest);
+  background: hsl(234 85% 55% / .12);
+  border-color: hsl(234 85% 62% / .45);
   box-shadow: none;
 }
 
@@ -2815,3 +2829,111 @@ a { color: var(--primary-color-high); }
   text-decoration: none;
 }
 .ink-dark-toggle:hover { color: var(--text-color-high); background: var(--background-color-medium); }
+
+/* -------------------------------------------------------------------------
+ * Ink form layout — PanWatch style: label on top, full-width tall fields
+ * ------------------------------------------------------------------------- */
+
+/* section card: bigger radius + generous padding + bold legend */
+.cbi-section, fieldset.cbi-section, .panel { padding: 20px 22px; }
+.cbi-section > legend, .cbi-section > h3, .panel-title, legend {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-color-high);
+  margin-bottom: 12px;
+  padding: 0;
+}
+
+/* stack each field: label above, field full width.
+   NOTE: must beat bootstrap's `.cbi-value label.cbi-value-title { flex:0 0 180px }`
+   — in a column that 180px becomes HEIGHT, so reset flex to auto with = specificity. */
+.cbi-value {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  margin-bottom: 16px;
+  padding: 0;
+  border: 0;
+}
+.cbi-value label.cbi-value-title,
+.cbi-value > .cbi-value-title {
+  flex: 0 0 auto;
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+  padding: 0 0 6px 0;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-color-medium);
+  line-height: 1.3;
+}
+.cbi-value-field { flex: 1 1 auto; width: 100%; margin-left: 0; padding: 0; }
+.cbi-value-description { color: var(--text-color-low); font-size: 12px; margin-top: 6px; }
+
+/* full-width, taller, comfy inputs */
+.cbi-value-field input[type="text"],
+.cbi-value-field input[type="password"],
+.cbi-value-field input[type="number"],
+.cbi-value-field input[type="search"],
+.cbi-value-field select,
+.cbi-value-field textarea,
+.cbi-input-text, .cbi-input-password {
+  width: 100%;
+  max-width: 520px;
+  min-height: 40px;
+  padding: 8px 12px;
+  background: var(--background-color-high);
+  border: 1px solid var(--border-color-medium);
+  color: var(--text-color-highest);
+}
+.cbi-value-field textarea { min-height: 96px; }
+
+/* modal / popup dialogs — rounded, padded, PanWatch-like */
+.modal {
+  border-radius: var(--ink-radius) !important;
+  padding: 24px 26px;
+  border: 1px solid var(--border-color-medium);
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, .45);
+}
+.modal h4, .modal h3 { font-weight: 700; }
+
+/* tables: roomier rows, soft header */
+.table .th { color: var(--text-color-medium); font-weight: 600; font-size: 12.5px; }
+.table .td, .table .th { padding: 12px 14px; }
+.cbi-section-table .tr:hover .td { background: var(--background-color-medium); }
+
+/* -------------------------------------------------------------------------
+ * Ink tabs — segmented control (PanWatch 持仓/关注 pill switch)
+ * ------------------------------------------------------------------------- */
+.cbi-tabmenu, .tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-bottom: 18px;
+  padding: 4px;
+  background: var(--background-color-medium);
+  border: 1px solid var(--border-color-medium);
+  border-radius: 999px;
+  list-style: none;
+}
+.cbi-tabmenu > li, .tabs > li { border: 0 !important; margin: 0; background: none; }
+.cbi-tabmenu > li > a, .tabs > li > a {
+  display: block;
+  border: 0 !important;
+  border-radius: 999px !important;
+  padding: 6px 16px;
+  color: var(--text-color-medium);
+  background: transparent;
+  font-weight: 500;
+}
+.cbi-tabmenu > li > a:hover, .tabs > li > a:hover { color: var(--text-color-high); background: transparent; }
+/* active tab = filled pill */
+.cbi-tabmenu > li.cbi-tab-active > a,
+.cbi-tabmenu > li.cbi-tab:not(.cbi-tab-disabled) > a,
+.tabs > li.active > a {
+  background: var(--background-color-high);
+  color: var(--text-color-highest);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .12);
+}

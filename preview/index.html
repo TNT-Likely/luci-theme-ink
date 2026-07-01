@@ -36,14 +36,34 @@
   <div id="maincontent" class="container">
     <h2>系统概览</h2>
 
+    <!-- KPI 卡片网格(PanWatch 风格,演示主题卡片观感) -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:14px 0 20px;">
+      <div class="cbi-section" style="padding:16px 18px;">
+        <div style="color:var(--text-color-medium);font-size:13px;">总市值</div>
+        <div style="font-size:26px;font-weight:700;margin-top:6px;">67.12万</div>
+      </div>
+      <div class="cbi-section" style="padding:16px 18px;">
+        <div style="color:var(--text-color-medium);font-size:13px;">今日盈亏</div>
+        <div style="font-size:26px;font-weight:700;margin-top:6px;color:var(--error-color-high);">+7594.38 <span style="font-size:14px;">(+1.14%)</span></div>
+      </div>
+      <div class="cbi-section" style="padding:16px 18px;">
+        <div style="color:var(--text-color-medium);font-size:13px;">总盈亏</div>
+        <div style="font-size:26px;font-weight:700;margin-top:6px;color:var(--success-color-high);">−58.24万 <span style="font-size:14px;">(−46.46%)</span></div>
+      </div>
+      <div class="cbi-section" style="padding:16px 18px;">
+        <div style="color:var(--text-color-medium);font-size:13px;">可用资金</div>
+        <div style="font-size:26px;font-weight:700;margin-top:6px;">0.00</div>
+      </div>
+    </div>
+
     <div class="alert-message success">已保存并应用配置。</div>
     <div class="alert-message warning">检测到 IPv6 由主路由下发,旁路由不再发 RA。</div>
 
     <!-- Tabs -->
-    <ul class="cbi-tabmenu tabs" style="display:flex;list-style:none;gap:2px;padding:0;">
-      <li class="cbi-tab cbi-tab-active active"><a href="#">常规设置</a></li>
-      <li class="cbi-tab"><a href="#">高级设置</a></li>
-      <li class="cbi-tab"><a href="#">DNS</a></li>
+    <ul class="cbi-tabmenu">
+      <li class="cbi-tab cbi-tab-active"><a href="#">常规设置</a></li>
+      <li class="cbi-tab-disabled"><a href="#">高级设置</a></li>
+      <li class="cbi-tab-disabled"><a href="#">DNS</a></li>
     </ul>
 
     <!-- Form card -->
