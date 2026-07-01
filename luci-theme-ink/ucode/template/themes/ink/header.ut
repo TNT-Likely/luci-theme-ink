@@ -55,6 +55,7 @@
 		<link rel="stylesheet" href="{{ media }}/ink-header.css">
 		<link rel="stylesheet" href="{{ media }}/ink-tabs.css">
 		<link rel="stylesheet" href="{{ media }}/ink-feedback.css">
+		<link rel="stylesheet" href="{{ media }}/ink-status.css">
 		<link rel="stylesheet" media="only screen and (max-device-width: 854px)" href="{{ media }}/mobile.css" />
 		<link rel="icon" href="{{ media }}/logo.svg" sizes="any">
 		{% if (node?.css): %}

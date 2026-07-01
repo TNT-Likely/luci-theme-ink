@@ -1,0 +1,62 @@
+/*!
+ * luci-theme-ink · status —— 状态/概览页控件(接口框 / 进度条 / 徽标)
+ * 目标:去掉 LuCI 默认的整块实心主色,改成克制的浅底+彩字,和 PanWatch 一致
+ */
+
+/* 接口框:去掉刺眼的实心亮蓝头,改浅底 */
+.ifacebox {
+  border: 1px solid var(--border-color-medium);
+  border-radius: var(--ink-radius-sm);
+  overflow: hidden;
+  background: var(--background-color-high);
+}
+.ifacebox-head {
+  background: var(--background-color-medium) !important;
+  color: var(--text-color-medium) !important;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-color-medium);
+}
+.ifacebox-head.active {
+  background: hsl(234 85% 55% / .12) !important;
+  color: var(--primary-color-high) !important;
+}
+.ifacebox-body { background: var(--background-color-high); color: var(--text-color-high); }
+
+/* 进度条:圆角轨道 + 靛蓝填充 + 居中数值文字 */
+.cbi-progressbar {
+  position: relative;
+  background: var(--background-color-medium);
+  border: 1px solid var(--border-color-medium);
+  border-radius: 999px;
+  overflow: hidden;
+  min-height: 20px;
+}
+.cbi-progressbar > div {
+  background: var(--primary-color-medium);
+  height: 100%;
+  border-radius: 999px 0 0 999px;
+}
+.cbi-progressbar::after {
+  content: attr(title);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  mix-blend-mode: difference;   /* 自动对比:浅底显深、靛蓝填充上显亮 */
+  white-space: nowrap;
+}
+
+/* 徽标/标签:柔化实心色为浅底彩字 */
+.zonebadge {
+  border-radius: var(--ink-radius-sm);
+  border: 1px solid var(--border-color-medium);
+}
+
+/* 顶栏"未保存"指示器等:小圆角,别是裸方块 */
+#indicators > * {
+  border-radius: var(--ink-radius-sm);
+}
